@@ -1,0 +1,5 @@
+data = "data"
+kaggle = "hospitalsKaggle.csv"
+hospitals = "FLHospitals.csv"
+geojson = "drive_time_isochrones.geojson"
+web = "web"
