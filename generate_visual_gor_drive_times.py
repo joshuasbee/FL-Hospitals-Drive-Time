@@ -7,6 +7,7 @@ data = paths.data
 hospitalcsv = paths.hospitals
 geojson = paths.geojson
 web = paths.web
+docs = paths.docs
 
 # Base map
 m = folium.Map(location=[28.5383, -81.3792], zoom_start=9)
@@ -26,8 +27,8 @@ for _, row in hospitals.iterrows():
     county = row['COUNTY']
     hospital_name = row['NAME']
 
-    # Create a FeatureGroup for the hospital
-    hospital_fg = folium.FeatureGroup(name=hospital_name, show=True)
+    # FeatureGroup for the hospital
+    hospital_fg = folium.FeatureGroup(name=f"--{hospital_name}", show=True)
 
     # Add polygons for this hospital
     hospital_iso = gdf[gdf['name'] == hospital_name].sort_values('value', ascending=False)
@@ -45,7 +46,7 @@ for _, row in hospitals.iterrows():
             }
         ).add_to(hospital_fg)
 
-    # Add marker
+    # Add hospital location marker
     folium.CircleMarker(
         location=[row['LATITUDE'], row['LONGITUDE']],
         radius=5,
@@ -71,8 +72,9 @@ for county, hospital_list in county_groups.items():
     for hospital_fg in hospital_list:
         hospital_fg.add_to(m)
 
-# Add LayerControl
+# Collapsible LayerControl to toggle hospitals
 folium.LayerControl(collapsed=True).add_to(m)
 
 # Save map
 m.save(f"{web}/fl_isochrones_GOR.html")
+m.save(f"{docs}/fl_isochrones_GOR.html")
