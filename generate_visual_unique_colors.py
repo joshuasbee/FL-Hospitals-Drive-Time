@@ -71,4 +71,4 @@ folium.LayerControl(collapsed=True).add_to(m)
 
 # Save map
 m.save(f"{web}/fl_isochrones_unique_colors.html")
-m.save(f"{docs}/fl_isochrones_unique_colors.html")
+m.save(f"{docs}/index.html")
